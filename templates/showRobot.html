@@ -1,0 +1,16 @@
+<html>
+	<head>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+	<body>
+		<div class = 'pane'>
+			<h1>Robots</h1>
+			<a href="{{url_for('newRobot')}}" > <h3> Create a New Robot </h3> </a>
+			{% for robot in robots %}
+				<a href = "{{url_for('showParts', robot_id = robot.id)}}"> <p>{{robot.name}}</p></a>
+				<p><a href = "{{url_for('editRobot',robot_id = robot.id)}}">Edit Robot</a></p>
+				<p> <a href = "{{url_for('deleteRobot',robot_id = robot.id)}}">Delete Robot</a> </p>
+			{% endfor %}
+		</div>
+	</body>
+</html>
