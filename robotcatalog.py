@@ -277,7 +277,7 @@ def showParts(robot_id):
     parts = session.query(Part).filter_by(
         robot_id=robot_id).all()
     return render_template('parts.html', parts=parts, robot=robot)
-    # return 'This page is the menu for restaurant %s' % restaurant_id
+    # return 'This page is the parts for robot %s' % robot_id
 
 # Create a new menu item
 
@@ -297,8 +297,8 @@ def newPart(robot_id):
         return render_template('newParts.html', robot_id=robot_id)
 
     return render_template('newParts.html', robot=robot)
-    # return 'This page is for making a new menu item for restaurant %s'
-    # %restaurant_id
+    # return 'This page is for making a new menu item for robot %s'
+    # %robot_id
 
 # Edit a menu item
 
