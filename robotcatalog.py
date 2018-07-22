@@ -279,7 +279,7 @@ def showParts(robot_id):
 	return render_template('parts.html', parts=parts, robot=robot)
 	# return 'This page is the parts for robot %s' % robot_id
 
-# Create a new menu item
+# Create a new part
 
 
 @app.route('/robots/<int:robot_id>/parts/new/', methods=['GET', 'POST'])
@@ -297,10 +297,10 @@ def newPart(robot_id):
 		return render_template('newParts.html', robot_id=robot_id)
 
 	return render_template('newParts.html', robot=robot)
-	# return 'This page is for making a new menu item for robot %s'
+	# return 'This page is for making a new part for robot %s'
 	# %robot_id
 
-# Edit a menu item
+# Edit a part
 
 
 @app.route('/robots/<int:robot_id>/parts/<int:part_id>/edit',
@@ -326,9 +326,9 @@ def editPart(robot_id, part_id):
 		return render_template(
 			'editPart.html', robot_id=robot_id, part_id=part_id, part=editedPart)
 
-	# return 'This page is for editing menu item %s' % menu_id
+	# return 'This page is for editing part %s' % part_id
 
-# Delete a menu item
+# Delete a part
 
 
 @app.route('/robots/<int:robot_id>/parts/<int:part_id>/delete',
@@ -343,7 +343,7 @@ def deletePart(robot_id, part_id):
 		return redirect(url_for('showParts', robot_id=robot_id))
 	else:
 		return render_template('deletePart.html', part=partToDelete)
-	# return "This page is for deleting menu item %s" % menu_id
+	# return "This page is for deleting part %s" % part_id
 
 
 if __name__ == '__main__':
