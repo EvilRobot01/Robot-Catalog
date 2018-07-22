@@ -1,14 +1,18 @@
-<html>
-	<head>
-		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-	<body>
-		<h1> Edit Robot </h1>
-		<form action="{{ url_for('editRobot',robot_id = robot.id)}}" method = 'post'>
+{% extends "main.html" %}
+{% block content %}
+<div class="row">
+  <div class="side">
+      <h1> Edit Robot </h1>
+  </div>
+  <div class="main">
+     <form action="{{ url_for('editRobot',robot_id = robot.id)}}" method = 'post'>
 			<p>Name:</p>
 			<input type ='text' size='30' name='name' placeholder = '{{robot.name }}'>
 			<input type='submit' value='Edit'>
 			<a href = '{{url_for('showRobots')}}'> Cancel </a>
 		</form>
-	</body>
-</html>
+  </div>
+</div>
+{% endblock %}
+
+

@@ -1,53 +1,17 @@
 {% extends "main.html" %}
 {% block content %}
-	<div class="row top-menu">
-		<div class="col-md-10"></div>
-		<div class="col-md-2 text-right">
-			<a href="{{url_for('showLogin')}}">Click Here to Log in </a>
-		</div>
-	</div>
-	<div class="row divider blue">
-		<div class="col-md-12"></div>
-	</div>
-	<div class="row banner main">
-		<div class="col-md-1"></div>
-		<div class="col-md-11 padding-none">
-			<h1>Robots</h1>
-		</div>
-	</div>
-
-	<div class = 'flash'>
-		      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-          
-        <ul>
-        {% for message in messages %}
-            <li> <strong> {{ message }} </strong> </li>
-        {% endfor %}
-        </ul>
-        {% endif %}
-    {% endwith %}
-
+<div class="row">
+  <div class="side">
+      <h1>Current Robots: </h1>
+      <a href="{{url_for('newRobot')}}" > <h3> Create a New Robot </h3> </a>
+			{% for robot in robots %}
+				<a href = "{{url_for('showParts', robot_id = robot.id)}}"> <h2>{{robot.name}}</h2></a>
+			{% endfor %}
+  </div>
+  <div class="main">
+      <h2>All the presented robots require a good work environment and safety procedures.💀</h2>
+   
+  </div>
 </div>
-
-
-	
-	<div class="row padding-top padding-bottom">
-		<div class="col-md-1"></div>
-		<div class="col-md-10 padding-none">
-			
-		</div>
-		<div class="col-md-1"></div>
-	</div>
-	{% for robot in robots %}
-		<a href = "{{url_for('showRobots', robot_id = robot.id)}}">
-			<div class="row">
-				<div class="col-md-1"></div>
-					<div class="col-md-10 robot-list">
-						<h3>{{robot.name}}</h3>
-					</div>
-				<div class="col-md-1"></div>
-			</div>
-		</a>
-	{% endfor %}
 {% endblock %}
+

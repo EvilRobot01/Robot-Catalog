@@ -1,9 +1,11 @@
-<html>
-	<head>
-		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-	<body><h1> Edit Part </h1>
-		<form action="#" method = 'post'>
+{% extends "main.html" %}
+{% block content %}
+<div class="row">
+  <div class="side">
+      <h1> Edit Part </h1>
+  </div>
+  <div class="main">
+     <form action="#" method = 'post'>
 			<p>Name:</p>
 			<input type ='text' size='30' name='name' placeholder = '{{part.name }}'>
 			<p>Description:</p>
@@ -16,5 +18,8 @@
 			<input type='submit' value='Edit'>
 			<a href = '#'> Cancel </a>
 		</form>
-	</body>
-</html>
+  </div>
+</div>
+{% endblock %}
+
+

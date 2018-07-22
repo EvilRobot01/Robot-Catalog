@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-	<body>
-		<div class="container">
-			{% block content %}
-			{% endblock %}
-		</div>
-	</body>
+<head>
+<title>My Evil Robots</title>
+<link rel="icon" href="{{ url_for('static', filename='logo.png') }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="header">
+  <h1>My Evil Robots</h1>
+  <p>A website where you find and design robots to conquer the world</p>
+</div>
+
+<div class="navbar">
+  <a href="{{url_for('showRobots')}}">☢ Show all Robots</a>
+  <a href="{{url_for('showLogin')}}" class="right">Login</a>
+</div>
+
+{% block content %}
+<div class="row">
+  <div class="side">
+      <h1>Current Robots: </h1>
+      <br>
+      <h2>Lone Wanderer</h2>
+      <br>
+
+  </div>
+  <div class="main">
+      <h1>Parts</h1>
+      <h2>Engine 4 electric</h2>
+      <h3>Material: Plastic</h3>
+   
+  </div>
+</div>
+{% endblock %}     
+</body>
 </html>

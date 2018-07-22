@@ -1,163 +1,85 @@
 * {
-	font-family: "Helvetica Neue Bold", Roboto, Helvetica, Arial, sans-serif;
-	font-weight: 700;
+    box-sizing: border-box;
 }
 
-h1 {
-	font-family: "Helvetica Neue Light", Roboto, Helvetica, Arial, sans-serif;
-	font-size: 50px;
-	color: #51453B;
-	line-height: 60px;
-	font-weight: 300;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
 }
 
-h2 {
-	font-size: 24px;
-	color: #42C3C9;
-	line-height: 29px;
+/* Style the header */
+.header {
+    padding: 10px;
+    text-align: center;
+    background: #4867E5;
+    color: white;
 }
 
-h3 {
-	font-size: 18px;
-	color: #4A4A4A;
-	line-height: 23px;
-}
- p {
- 	font-family: "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif;
- 	font-size: 16px;
- 	color: #7B7573;
- 	line-height: 24px;
- 	font-weight: 400;
- }
-
- strong {
- 	font-size: 16px;
- 	color: #7B7573;
- 	line-height: 24px;
- }
-
- a {
- 	font-size: 14px;
- 	color: #0093B9;
- 	line-height: 17px;
- }
-.padding-top {
-	padding-top: 30px;
-}
-.padding-bottom {
-	padding-bottom: 30px;
-}
-.margin-right {
-	margin-right: 30px;
-}
-.padding-none {
-	padding: 0;
-}
-.btn {
-	padding: 20px;
-	margin: 0;
-	border-color: #9FB80A;
-	border-width: 2px;
-	color: #9FB80A;;
-}
-.btn:hover {
-	border-color: #9FB80A;
-}
-.btn.delete {
-	border-color: #aaaaaa;
-	color: #aaaaaa;
-}
-.btn.delete:hover {
-	border-color: #aaaaaa;
-	color: red;
-}
-.glyphicon {
-	margin-right: 10px;
-}
-.top-menu {
-	padding-top: 30px;
-	padding-bottom: 30px;
-}
-.top-menu p {
-	margin-bottom: 0;
-	line-height: 16px;
-}
-.top-menu a {
-	margin-bottom: 0;
-	line-height: 16px;
-	font-size: 16px;
-	color: #7B7573;
-	font-weight: 400;
-}
-.divider {
-	height: 15px;
-}
-.divider.blue {
-	background-color: #42C3C9;
-}
-.divider.green {
-	background-color: #9FB80A;
-}
-.banner.main {
-	height: 150px;
-	background: url("/static/top-banner.jpg");
-	background-position: right;
-	background-repeat: no-repeat;
-	background-size: cover;
-}
-.banner.menu {
-	height: 150px;
-	background-color: #E1E17F;
-}
-.banner.profile {
-	height: 150px;
-	background-color: #A6E8EB;
-}
-.banner h1 {
-	margin: 45px 0;
-}
- .restaurant-list {
- 	background-color: #F0F0F0;
- 	padding: 20px;
-u }
- .restaurant-list:hover {
- 	background-color: #e1e17f;
- 	padding: 20px;
-}
-.menu-item {
-	background: #F0F0F0;
-	padding: 20px;
-	margin: 20px;
-	margin-left: -20px;
-}
-.menu-price {
-	font-weight: 700;
-}
-.creator {
-	padding-right: 20px;
-	margin-top: -20px;
-	text-align: right;
-	float:right;
-}
-.creator img {
-	width: 100px;
-	border-radius: 50%;
-}
-.creator figcaption {
-	font-size: 14px;
-	color: #7B7573;
-	font-weight: 400;
-	margin-top: -20px;
-}
-.flash {
-	background-color: #98FB98;
-	width:100%;
-	text-decoration: none;
-
+/* Increase the font size of the h1 element */
+.header h1 {
+    font-size: 40px;
 }
 
-.flash li {
-	list-style-type: none;
-	text-align: center;
+/* Style the top navigation bar */
+.navbar {
+    overflow: hidden;
+    background-color: #333;
+}
 
+/* Style the navigation bar links */
+.navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+/* Right-aligned link */
+.navbar a.right {
+    float: right;
+    background-color:red;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Column container */
+.row {  
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+    flex: 30%;
+    background-color: #f1f1f1;
+    padding: 20px;
+}
+
+/* Main column */
+.main {   
+    flex: 70%;
+    background-color: white;
+    padding: 20px;
+}
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+    .row {   
+        flex-direction: column;
+    }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+    .navbar a {
+        float: none;
+        width:100%;
+    }
 }
