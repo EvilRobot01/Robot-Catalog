@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <title>My Evil Robots</title>
-<link rel="icon" href="{{ url_for('static', filename='logo.png') }}">
+<link href="static/logo.png" rel="icon">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+<link href="static/styles.css" rel="stylesheet" >
 </head>
 <body>
 
@@ -15,22 +15,17 @@
 </div>
 
 <div class="navbar">
-   <a href="{{url_for('showRobots')}}">☢ Show all Robots</a>
-  {% if 'username' not in session %}
-  <a href="{{url_for('showLogin')}}" class="right">Login</a>
-  {% else %}
-  <a href="{{url_for('gdisconnect')}}" class="right">Logout</a>
-  {% endif %}
+  <a href="#">☢ Show all Robots</a>
+  <a href="#" class="right">Login</a>
 </div>
 
-{% block content %}
 <div class="row">
   <div class="side">
       <h1>Current Robots: </h1>
       <br>
       <h2>Lone Wanderer</h2>
       <br>
-
+     
   </div>
   <div class="main">
       <h1>Parts</h1>
@@ -39,6 +34,6 @@
    
   </div>
 </div>
-{% endblock %}     
+
 </body>
 </html>

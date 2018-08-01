@@ -23,6 +23,7 @@ class Robot(Base):
     name = Column(String(250), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+    part = relationship('Part', cascade='all, delete-orphan')
 
     @property
     def serialize(self):
