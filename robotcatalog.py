@@ -248,8 +248,8 @@ def showRobots():
         return render_template('showRobot.html', robots=robots)
 
 
-@login_required
 @app.route('/robots/new', methods=['GET', 'POST'])
+@login_required
 def newRobot():
     if request.method == 'POST':
         newRobot = Robot(name=request.form[
@@ -262,11 +262,14 @@ def newRobot():
         return render_template('newRobot.html')
 
 
-@login_required
 @app.route('/robots/<int:robot_id>/edit/', methods=['GET', 'POST'])
+@login_required
 def editRobot(robot_id):
     editedRobot = session.query(
         Robot).filter_by(id=robot_id).one()
+    if editedRobot.user_id != login_session['user_id']:
+        return "<script>function myFunction() \
+        {alert('No authorized user.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         if request.form['name']:
             editedRobot.name = request.form['name']
@@ -280,11 +283,14 @@ def editRobot(robot_id):
 # Delete a robot
 
 
-@login_required
 @app.route('/robots/<int:robot_id>/delete/', methods=['GET', 'POST'])
+@login_required
 def deleteRobot(robot_id):
     robotToDelete = session.query(
         Robot).filter_by(id=robot_id).one()
+    if robotToDelete.user_id != login_session['user_id']:
+        return "<script>function myFunction() \
+        {alert('No authorized user.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         session.delete(robotToDelete)
         session.commit()
@@ -309,22 +315,25 @@ def showParts(robot_id):
 # Create a new part
 
 
-@login_required
 @app.route('/robots/<int:robot_id>/parts/new/', methods=['GET', 'POST'])
+@login_required
 def newPart(robot_id):
+    robot = session.query(Robot).filter_by(id=robot_id).one()
+    if robot.user_id != login_session['user_id']:
+        return "<script>function myFunction() \
+        {alert('No authorized user.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         newPart = Part(name=request.form['name'],
                        description=request.form['description'],
                        price=request.form['price'],
                        material=request.form['material'],
-                       robot_id=robot_id)
+                       robot_id=robot_id,
+                       user_id=robot.user_id)
         session.add(newPart)
         session.commit()
-
         return redirect(url_for('showParts', robot_id=robot_id))
     else:
         return render_template('newParts.html', robot_id=robot_id)
-
     return render_template('newParts.html', robot=robot)
     # return 'This page is for making a new part for robot %s'
     # %robot_id
@@ -332,11 +341,15 @@ def newPart(robot_id):
 # Edit a part
 
 
-@login_required
 @app.route('/robots/<int:robot_id>/parts/<int:part_id>/edit',
            methods=['GET', 'POST'])
+@login_required
 def editPart(robot_id, part_id):
     editedPart = session.query(Part).filter_by(id=part_id).one()
+    robot = session.query(Robot).filter_by(id=robot_id).one()
+    if robot.user_id != login_session['user_id']:
+        return "<script>function myFunction() \
+        {alert('No authorized user.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         if request.form['name']:
             editedPart.name = request.form['name']
@@ -360,13 +373,15 @@ def editPart(robot_id, part_id):
 # Delete a part
 
 
-@login_required
 @app.route('/robots/<int:robot_id>/parts/<int:part_id>/delete',
            methods=['GET', 'POST'])
+@login_required
 def deletePart(robot_id, part_id):
     partToDelete = session.query(Part).filter_by(id=part_id).one()
-    if 'user.id' != 'part.user_id':
-        return redirect('/robots/')
+    robot = session.query(Robot).filter_by(id=robot_id).one()
+    if robot.user_id != login_session['user_id']:
+        return "<script>function myFunction() \
+        {alert('No authorized user.');}</script><body onload='myFunction()'>"
     if request.method == 'POST':
         session.delete(partToDelete)
         session.commit()
