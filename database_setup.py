@@ -15,6 +15,16 @@ class User(Base):
     email = Column(String(250), nullable=False)
     picture = Column(String(250))
 
+    @property
+    def serialize(self):
+        """Return object data in easily serializeable format"""
+        return {
+            'name': self.name,
+            'email': self.email,
+            'id': self.id,
+            'picture': self.picture,
+        }
+
 
 class Robot(Base):
     __tablename__ = 'robot'
@@ -56,6 +66,9 @@ class Part(Base):
             'id': self.id,
             'price': self.price,
             'material': self.material,
+            'robot_id': self.robot_id,
+            'user_id': self.user_id,
+
         }
 
 

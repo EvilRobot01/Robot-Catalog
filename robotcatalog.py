@@ -21,6 +21,7 @@ from oauth2client.client import FlowExchangeError
 import httplib2
 import json
 from flask import make_response
+from functools import wraps
 import requests
 
 app = Flask(__name__)
@@ -191,6 +192,7 @@ def gdisconnect():
         del login_session['username']
         del login_session['email']
         del login_session['picture']
+        del login_session['user_id']
 
         response = make_response(json.dumps('Successfully disconnected.'), 200)
         response.headers['Content-Type'] = 'application/json'
@@ -203,9 +205,20 @@ def gdisconnect():
         return response
 
 
+def login_required(f):
+    @wraps(f)
+    def decorate_funtion(*args, **kwargs):
+        if 'username' in login_session:
+            return f(*args, **kwargs)
+        else:
+            flash("Login required")
+            return redirect('/login')
+    return decorate_funtion
+
+
 @app.route('/robots/<int:robot_id>/parts/JSON')
 def robotPartsJSON(robot_id):
-    robot = session.query(Robot).filter_by(id=robot_id).one()
+    robot = session.query(Robot).filter_by(id=robot_id).one_or_none()
     parts = session.query(Part).filter_by(
         robot_id=robot_id).all()
     return jsonify(Part=[i.serialize for i in parts])
@@ -235,10 +248,9 @@ def showRobots():
         return render_template('showRobot.html', robots=robots)
 
 
+@login_required
 @app.route('/robots/new', methods=['GET', 'POST'])
 def newRobot():
-    if 'username' not in login_session:
-        return redirect('/login')
     if request.method == 'POST':
         newRobot = Robot(name=request.form[
                          'name'], user_id=login_session['user_id'])
@@ -250,6 +262,7 @@ def newRobot():
         return render_template('newRobot.html')
 
 
+@login_required
 @app.route('/robots/<int:robot_id>/edit/', methods=['GET', 'POST'])
 def editRobot(robot_id):
     if 'username' not in login_session:
@@ -270,6 +283,7 @@ def editRobot(robot_id):
 # Delete a robot
 
 
+@login_required
 @app.route('/robots/<int:robot_id>/delete/', methods=['GET', 'POST'])
 def deleteRobot(robot_id):
     if 'username' not in login_session:
@@ -300,6 +314,7 @@ def showParts(robot_id):
 # Create a new part
 
 
+@login_required
 @app.route('/robots/<int:robot_id>/parts/new/', methods=['GET', 'POST'])
 def newPart(robot_id):
     if 'username' not in login_session:
@@ -324,6 +339,7 @@ def newPart(robot_id):
 # Edit a part
 
 
+@login_required
 @app.route('/robots/<int:robot_id>/parts/<int:part_id>/edit',
            methods=['GET', 'POST'])
 def editPart(robot_id, part_id):
@@ -353,11 +369,14 @@ def editPart(robot_id, part_id):
 # Delete a part
 
 
+@login_required
 @app.route('/robots/<int:robot_id>/parts/<int:part_id>/delete',
            methods=['GET', 'POST'])
 def deletePart(robot_id, part_id):
     if 'username' not in login_session:
         return redirect('/login')
+    if 'User.user_id' != 'Part.user_id':
+        return redirect('/robots/')    
     partToDelete = session.query(Part).filter_by(id=part_id).one()
     if request.method == 'POST':
         session.delete(partToDelete)
