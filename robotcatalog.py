@@ -364,9 +364,9 @@ def editPart(robot_id, part_id):
 @app.route('/robots/<int:robot_id>/parts/<int:part_id>/delete',
            methods=['GET', 'POST'])
 def deletePart(robot_id, part_id):
-    if User.id != Part.user_id:
-        return redirect('/robots/')
     partToDelete = session.query(Part).filter_by(id=part_id).one()
+    if 'user.id' != 'part.user_id':
+        return redirect('/robots/')
     if request.method == 'POST':
         session.delete(partToDelete)
         session.commit()
