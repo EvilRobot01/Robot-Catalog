@@ -265,9 +265,6 @@ def newRobot():
 @login_required
 @app.route('/robots/<int:robot_id>/edit/', methods=['GET', 'POST'])
 def editRobot(robot_id):
-    if 'username' not in login_session:
-        flash("Edition is not authorized!")
-        return redirect('/login')
     editedRobot = session.query(
         Robot).filter_by(id=robot_id).one()
     if request.method == 'POST':
@@ -286,8 +283,6 @@ def editRobot(robot_id):
 @login_required
 @app.route('/robots/<int:robot_id>/delete/', methods=['GET', 'POST'])
 def deleteRobot(robot_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     robotToDelete = session.query(
         Robot).filter_by(id=robot_id).one()
     if request.method == 'POST':
@@ -317,8 +312,6 @@ def showParts(robot_id):
 @login_required
 @app.route('/robots/<int:robot_id>/parts/new/', methods=['GET', 'POST'])
 def newPart(robot_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     if request.method == 'POST':
         newPart = Part(name=request.form['name'],
                        description=request.form['description'],
@@ -343,8 +336,6 @@ def newPart(robot_id):
 @app.route('/robots/<int:robot_id>/parts/<int:part_id>/edit',
            methods=['GET', 'POST'])
 def editPart(robot_id, part_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     editedPart = session.query(Part).filter_by(id=part_id).one()
     if request.method == 'POST':
         if request.form['name']:
@@ -373,10 +364,8 @@ def editPart(robot_id, part_id):
 @app.route('/robots/<int:robot_id>/parts/<int:part_id>/delete',
            methods=['GET', 'POST'])
 def deletePart(robot_id, part_id):
-    if 'username' not in login_session:
-        return redirect('/login')
-    if 'User.user_id' != 'Part.user_id':
-        return redirect('/robots/')    
+    if User.id != Part.user_id:
+        return redirect('/robots/')
     partToDelete = session.query(Part).filter_by(id=part_id).one()
     if request.method == 'POST':
         session.delete(partToDelete)
