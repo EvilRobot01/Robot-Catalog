@@ -20,6 +20,6 @@ This website create, display, and delete robots and their parts. It requires an 
 1. Change directory to `\Robot-Catalog`
 1. Run database_setup.py in vagrant to create database:
   `python database_setup.py`
-1. Run dummyData.py in vagrant to insert fake robots and profile in database (no robot countain parts):                           
+1. Run dummyData.py in vagrant to insert fake robots and profile in database (no robot contains parts):                           
     `python dummyData.py`
 1. Run robotcatalog.py in vagrant to set up the website:
